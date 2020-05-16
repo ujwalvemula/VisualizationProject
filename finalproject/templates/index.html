@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Visualization Final Project - Group 65</title>
+    <script src="http://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='choropleth.js')}}"></script>
+    <script src="{{url_for('static', filename='lineChart.js')}}"></script>
+  </head>
+
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial;
+    }
+
+    /* Style tab links */
+    .tablink {
+      background-color: #555;
+      color: white;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      font-size: 17px;
+      width: 20%;
+    }
+
+    .tablink:hover {
+      background-color: #777;
+    }
+
+    /* Style the tab content (and add height:100% for full page content) */
+    .tabcontent {
+      color: white;
+      display: none;
+      padding: 100px 20px;
+      height: 100%;
+    }
+
+    #Home {background-color: red;}
+    #News {background-color: green;}
+    #Contact {background-color: blue;}
+    #About {background-color: orange;}
+  </style>
+
+
+  <body>
+
+    <center>
+      <button class="tablink" onclick="openPage('tab1', this, 'red')" id="defaultOpen">Tab1</button>
+      <button class="tablink" onclick="openPage('tab2', this, 'green')">Tab2</button>
+      <button class="tablink" onclick="openPage('tab3', this, 'blue')">Tab3</button>
+      <button class="tablink" onclick="openPage('tab4', this, 'blue')">Tab4</button>
+      <button class="tablink" onclick="openPage('tab5', this, 'orange')">Tab5</button>
+
+      <div id="tab1" class="tabcontent">
+        <div class="yearSelect"></div>
+        <div class="deathMap" style="max-width: 1000px;"></div>
+      </div>
+
+      <div id="tab2" class="tabcontent">
+        <h3>Dashboard</h3>
+        <div class="dashboard" style="max-width: 1000px;"></div>
+      </div>
+
+      <div id="tab3" class="tabcontent">
+        <h3>Parallel Coordinates</h3>
+
+      </div>
+
+      <div id="tab4" class="tabcontent">
+        <h3>Attacks Timeline</h3>
+
+      </div>
+
+      <div id="tab5" class="tabcontent">
+        <h3>Infographics</h3>
+
+      </div>
+
+    </center>
+
+    <script type="text/javascript">
+
+      function openPage(pageName, elmnt, color) {
+        // Hide all elements with class="tabcontent" by default */
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+
+        // Remove the background color of all tablinks/buttons
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].style.backgroundColor = "";
+        }
+
+        // Show the specific tab content
+        document.getElementById(pageName).style.display = "block";
+        // setupPage(pageName);
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.style.backgroundColor = color;
+      }
+
+      //Tab 1 Elements
+      // var deathMap = new Choropleth({
+      //   container: document.querySelector('.deathMap')
+      //   //send data
+      //  });
+
+      var updateMap = function(){
+        var newYearValue = d3.select(this).property('value');
+        $.post("", {'data': 'choropleth-'.concat(newYearValue.toString())}, function(data_infunc){
+          mapData = JSON.parse(data_infunc);
+          $( ".deathMap" ).empty();
+          new Choropleth({
+            container: document.querySelector('.deathMap'),
+            data: mapData.choroplethData
+           });
+        });
+      };
+
+      //trigger map update on selection of new attribute from dropdown
+      var yearSelectDD = d3.select(".yearSelect").insert("select", "svg")
+                              .on("change", updateMap);
+
+      //adding attribute options to the dropdown
+      var years = [];
+      for(i=1970; i<2018; i++) {
+        if(i==1993) {
+          continue;
+        }
+        years.push(i);
+      }
+      yearSelectDD.selectAll("option").data(years)
+                      .enter().append("option")
+                      .attr("value", (d) => {return d;})
+                      .text((d) => {return d;});
+
+      //Tab 2 Elements
+      var dashboard = new LineChart({
+       container: document.querySelector('.dashboard')
+      });
+
+
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+
+
+    </script>
+  </body>
+</html>
