@@ -11,10 +11,10 @@ from sklearn.manifold import MDS
 
 terr_data=pd.read_csv("data/data.csv")
 terr_csv_data= terr_data.groupby(['country','iyear']).agg({'iyear':'first','country_txt':'first','nkill':['sum'],'eventid':pd.Series.nunique})
-hdi_csv_data=pd.read_csv("data/hdi.csv")
-me_csv_data=pd.read_csv("data/military_expenditure.csv")
-imports=pd.read_csv("data/imports.csv")
-exports=pd.read_csv("data/exports.csv")
+hdi_csv_data=pd.read_csv("data/hdi.csv").fillna(0.0)
+me_csv_data=pd.read_csv("data/military_expenditure.csv").fillna(0.0)
+imports=pd.read_csv("data/imports.csv").fillna(0.0)
+exports=pd.read_csv("data/exports.csv").fillna(0.0)
 
 terr_columns=terr_csv_data.columns
 
