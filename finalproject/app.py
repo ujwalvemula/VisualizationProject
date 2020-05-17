@@ -3,9 +3,10 @@ import json
 from flask import Flask, render_template, request, redirect, Response, jsonify
 import numpy as np
 import pandas as pd
+import util as u
 
 app = Flask(__name__)
-originalData = pd.read_csv('/Users/ujwal/data/stonybrook/spring2020/visualization/project/data/globalterrorismdb_0718dist.csv', encoding = "ISO-8859-1")
+originalData = pd.read_csv('data/data.csv', encoding = "ISO-8859-1")
 columns =  ['eventid','iyear','imonth','iday','extended','country','country_txt','region','region_txt','provstate','city','latitude','longitude','specificity','vicinity','location','summary',
 'crit1','crit2','crit3','doubtterr','multiple','success','suicide','attacktype1','attacktype1_txt','targtype1','targtype1_txt','targsubtype1','targsubtype1_txt','natlty1','natlty1_txt',
 'gname','guncertain1','individual','weaptype1','weaptype1_txt','weapsubtype1','weapsubtype1_txt','nkill','nwound','property','ishostkid']
@@ -51,6 +52,34 @@ def index():
     else:
         return render_template("index.html", data = tempData)
 
+@app.route('/country_data',methods=['GET','POST'])
+def get_data():
+   data=u.get_country_data()
+   return jsonify(data)
+
+@app.route('/dashboard_data',methods=['GET'])
+def get_dashboard_data():
+   print(request.args) 
+   country= request.args['cname']
+   data=u.get_dashboard_data(country)
+   return jsonify(data)
+
+@app.route('/scat_data',methods=['GET'])
+def get_scatter_plot_data():
+   print(request.args) 
+   country= request.args['cname']
+   decade=int(request.args['decade'])
+   data=u.get_scatter_plot_data(country,decade)
+   return jsonify(data)
+
+
+@app.route('/tab2.html', )
+def main():
+    return render_template('tab2.html')
+
+@app.route('/tab5.html', )
+def main2():
+    return render_template('tab5.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

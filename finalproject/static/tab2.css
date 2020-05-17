@@ -1,0 +1,89 @@
+ {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+thead, tbody { display: block; }
+
+#dashboard-table-body {
+    height: 390px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: auto;  /* Hide the horizontal scroll */
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+.graph{
+        text-align:center;
+        float: center;       
+}
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+body{
+   margin:0px;     
+}
+.point {
+    fill:steelblue;
+    stroke: #fff;
+}
+.path {
+    fill: none;
+    stroke:steelblue;
+    stroke-width: 2;
+}
+  
+.loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid blue;
+        border-bottom: 16px solid blue;
+        width: 30px;
+        height: 30px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+      }
+      
+      @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+

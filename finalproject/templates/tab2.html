@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/tab2.css">
+        <meta charset="utf-8">
+        <link href="/d3-geomap/d3-geomap.css" rel="stylesheet">
+        <script src = "https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{{url_for('static', filename='tab2.js')}}" ></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://d3js.org/topojson.v1.min.js"></script>
+    </head>
+    <body onload="handle_pageload()" >
+        <div id="page-head" style="width: 100%;height: 15%;text-align: center;border: 1px black dotted;border-radius: 3px;">
+            <h2>Nation Wide Statistics</h2>
+        </div>
+        <div id="page-center" style="width:100% ; height:80% ; text-align: center; " >
+            <div id="left-div"  style="width:30% ; height:100% ; text-align: center;float: left;border: 1px black dotted;border-radius: 3px;overflow: auto;" >
+                <!-- Table div-->
+                <h2> Deaths by Nation </h2>
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+                <table id="myTable">
+                    <tr class="header">
+                        <th style="width:50%;">Country</th>
+                        <th style="width:10%;">#Incidents</th>
+                        <th style="width:20%;"># Kills</th>
+                        <th style="width:20%;">HDI Rank</th>
+                    </tr>
+                    <tbody id="dashboard-table-body">
+
+                    </tbody>
+                    
+                </table>
+            </div>
+            <div id="center-div" style="width:69% ; height:100% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+                <!-- Main div -->
+                <div id="cleft-div" onclick="handle_pageload()" style="width:49% ; height:100% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+                    <div id="graph1"style="width:100% ; height:33% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+                        Graph 1
+                    </div>
+                    <div id="graph2" style="width:100% ; height:33% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+                        Graph2
+                    </div>
+                    <div id="graph3" style="width:100% ; height:33% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+                        Graph 3
+                    </div>
+                </div>
+                <div id="cright-div" onclick="handle_pageload()" style="width:49% ; height:100% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+                    <div id="Map1" style="width:100% ; height:50% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+                        Map1
+                        <div class="d3-geomap" id="map"></div>
+                    </div>
+                    <div id="Table1" style="width:100% ; height:50% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+                        Table1
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+
+    </body>
+</html>
