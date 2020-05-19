@@ -17,6 +17,7 @@ function get_dashboard_data(key){
 	make_line_plot(data_x,data_y,1)
 	
 	$("#Country")[0].innerHTML="<b>"+country+"- incidents - statistics </b> "
+	$("#kills")[0].innerText=''+country_data[country]['total_kills']
 	/*//Plotting Incidents in an year
 	events_data=country_data[key]['events'];
 	data_x=Object.keys(events_data).map(Number);
@@ -28,13 +29,16 @@ function get_dashboard_data(key){
 		data_x=Object.keys(military_expenditure);
 		data_y=Object.values(military_expenditure);
 		make_line_plot(data_x,data_y,3)
-
+		$("#mi")[0].innerText=''+data.metric_data['total_imports']
+		$("#me")[0].innerText=''+(Math.round((data.metric_data['total_mil_exp']/59)* 100) / 100)
 		imports=data.metric_data.imports;
 		data_x=Object.keys(imports);
 		data_y=Object.values(imports);
 		make_line_plot(data_x,data_y,2)
 		add_reg_under_threat(data.state_data,data.city_data,data.attacks)
 		updateMap()
+		
+
   });
 }
 
