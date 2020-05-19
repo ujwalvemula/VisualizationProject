@@ -1,9 +1,36 @@
 var scatter_plot_data
+var sun_burst_data
 function handle_pageload(){
-    get('http://127.0.0.1:5000/scat_data?cname=India&decade=3',function(data,status){
+    get('http://127.0.0.1:5000/scat_pi_data',function(data,status){
+        countries_list=data.countries;
+        for(var i=0;i<countries_list.length;i++){
+            country=countries_list[i];
+            $("#country").append(new Option(country,country));
+        }
+        $("#country").append(new Option('United States','United States'));
+        get_scatter_plot_data(countries_list[0],5);
+    });
+    
+    
+}
+
+function get_scatter_plot_data(country,decade){
+    $("#loader")[0]['style'].visibility='visible'
+    $("#main")[0]['style'].visibility='hidden'
+    get('http://127.0.0.1:5000/scat_data?cname='+country+'&decade='+decade,function(data,status){
+        $("#main")[0]['style'].visibility='visible'
+        $("#loader")[0]['style'].visibility='hidden'
         scatter_plot_data=data;
-        scatter_plot(scatter_plot_data)
-      });
+        scatter_plot(scatter_plot_data);
+        sun_burst_data=data['sun_burst'];
+        plot_sun_burst(sun_burst_data);
+    });
+}
+
+function on_scat_change(){
+    country=$("#country")[0].value;
+    decade=$("#decade")[0].value;
+    get_scatter_plot_data(country,decade)
 }
 
 function scatter_plot(data){
@@ -51,7 +78,7 @@ function scatter_plot(data){
 			.attr("stroke", "black");
     gdata=[];
     for(var i=0;i<data['x'].length;i++){
-        gdata.push({'p1':data['x'][i],'p2':data['y'][i],'color':data['groups'][data['g'][i]]})
+        gdata.push({'p1':data['x'][i],'p2':data['y'][i],'color':data['groups'][data['g'][i]],'group':data['g'][i]})
     }
     svg.selectAll(".dot")
       .data(gdata)
@@ -61,7 +88,9 @@ function scatter_plot(data){
       .attr("cy", function(d) { 
         return yscale(d.p2) })
       .attr("r", 3.5)
-      .style("fill", function(d) { return get_color(d.color);});
+      .style("fill", function(d) { return get_color(d.color);})
+      .append("title")
+          .text(d => `${d.group}`);
   
 } 
 
@@ -71,7 +100,7 @@ function clear_graph(){
 
 
 function get_color(i){
-    colors=['red','green','blue','black','orange','violet','yellow']
+    colors=['red','indigo','blue','green','yellow','orange']
     return colors[i]
 }
 
@@ -87,4 +116,55 @@ function get(url,afunc){
  	$.get(url, function(data, status){
     afunc(data,status)
  	  });
+}
+
+function plot_sun_burst(nodeData){
+    
+    // Variables
+    var width = 400;
+    var height = 400;
+    var radius = Math.min(width, height) / 2;
+    var color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 8))
+    d3.select("#graph2").selectAll("*").remove()
+    // Create primary <g> element
+    var g = d3.select('#graph2').append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+    // Data strucure
+    var partition = d3.partition()
+        .size([2 * Math.PI, radius]);
+
+    // Find data root
+    var root = d3.hierarchy(nodeData)
+        .sum(function (d) { return d.size});
+
+    // Size arcs
+    partition(root);
+    var arc = d3.arc()
+        .startAngle(function (d) { return d.x0 })
+        .endAngle(function (d) { return d.x1 })
+        .innerRadius(function (d) { return d.y0 })
+        .outerRadius(function (d) { return d.y1 });
+    var format = d3.format(",d")
+    // Put it all together
+    g.selectAll('path')
+        .data(root.descendants())
+        .enter().append('path')
+        .attr("display", function (d) { return d.depth ? null : "none"; })
+        .attr("d", arc)
+        .style('stroke', '#fff')
+        .style("fill", function (d) { 
+            if(d.data.name in scatter_plot_data['groups']){
+                c1=get_color(scatter_plot_data['groups'][d.data.name]);
+            }
+            else
+                c1=  color((d.children ? d : d.parent).data.name);
+            return c1;
+         })
+        .append("title")
+          .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n Total deaths: ${format(d.value)}`);
+        
 }

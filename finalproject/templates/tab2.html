@@ -7,6 +7,9 @@
         <script src = "https://d3js.org/d3.v4.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="{{url_for('static', filename='tab2.js')}}" ></script>
+		<script src="{{url_for('static', filename='choropleth.js')}}"></script>
+		<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+		<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://d3js.org/topojson.v1.min.js"></script>
     </head>
@@ -49,10 +52,24 @@
                 <div id="cright-div" onclick="handle_pageload()" style="width:49% ; height:100% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
                     <div id="Map1" style="width:100% ; height:50% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
                         Map1
-                        <div class="d3-geomap" id="map"></div>
+                        <div class="deathMap" style="max-width: 1000px;"></div>
                     </div>
                     <div id="Table1" style="width:100% ; height:50% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
-                        Table1
+                        <div style="width:49% ; height:100% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;">
+							<h4><b>Regions Under Threat</b></h4>
+								<div>
+									<h5><b>Top States</b></h5>
+									<ul id="states"></ul>
+								</div>
+								<div>
+									<h5><b>Top Cities</b></h5>
+									<ul id="cities"></ul>
+								</div>	
+						</div>
+						<div style="width:49% ; height:100% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;">
+							<h4><b>Major Attacks</b></h4>
+								<ul id="attacks"></ul>
+						</div>	
                     </div>
                 </div>
             </div>
@@ -60,6 +77,6 @@
             
         </div>
         
-
+		<div class="tooltip"></div>
     </body>
 </html>

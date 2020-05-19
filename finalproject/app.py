@@ -72,13 +72,28 @@ def get_scatter_plot_data():
    data=u.get_scatter_plot_data(country,decade)
    return jsonify(data)
 
+@app.route('/scat_pi_data',methods=['GET'])
+def get_scat_pi_data():
+   data=u.get_scat_pi_data()
+   return jsonify(data)
+
+@app.route('/pll_cord_data',methods=['GET'])
+def get_parallel_coordinate_data():
+   data=u.get_parallel_coordinate_data()
+   return jsonify(data)
+
 
 @app.route('/tab2.html', )
-def main():
+def tab2():
     return render_template('tab2.html')
 
+@app.route('/tab3.html', )
+def tab3():
+    return render_template('tab3.html')
+
+
 @app.route('/tab5.html', )
-def main2():
+def tab5():
     return render_template('tab5.html')
 
 if __name__ == "__main__":

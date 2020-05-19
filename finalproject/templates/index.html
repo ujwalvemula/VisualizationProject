@@ -78,8 +78,7 @@
       </div>
 
       <div id="tab3" class="tabcontent">
-        <h3>Parallel Coordinates</h3>
-
+        <iframe src="/tab3.html" title="Parallel-Coordinates" class="dashboard-content"></iframe>
       </div>
 
       <div id="tab4" class="tabcontent">
@@ -134,7 +133,12 @@
           $( ".deathMap" ).empty();
           new Choropleth({
             container: document.querySelector('.deathMap'),
-            data: mapData.choroplethData
+            data: mapData.choroplethData,
+			width:800,
+			height:600,
+			scale:100,
+			center:[0,20]
+			
            });
         });
       };
@@ -164,8 +168,9 @@
 
       // Get the element with id="defaultOpen" and click on it
       document.getElementById("defaultOpen").click();
-
+	
 
     </script>
+	<div class="tooltip"></div>
   </body>
 </html>

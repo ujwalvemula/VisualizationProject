@@ -13,13 +13,39 @@
         <div id="page-head" style="width: 100%;height: 10%;text-align: center;border: 1px black dotted;border-radius: 3px;">
             <h2>Nation Wide Statistics</h2>
         </div>
-        <div id="page-center" style="width:100% ; height:85% ; text-align: center; " >
-			<div style="width: 100%;height: 100%;text-align: center;border: 1px black dotted;border-radius: 3px;">
-				<div id="graph1"style="width:100% ; height:100% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+        <div id="page-center" style="width:100% ; height:85% ;text-align: center; " >
+			<div style="width: 100%;height: 10%;text-align: center;border: 1px black dotted;border-radius: 3px;float:left;">
+				<div style="margin-left:30%;margin-top:15px;float:left">
+					<div style="margin-left:20px;float:left">
+						<label>Country</label>
+						<select id="country" name="country" >
+						</select>
+					</div>				
+					<div style="margin-left:20px;float:left">
+						<label>Decade</label>
+						<select id="decade" name="decade" >
+							<option value="5">2010-17</option>
+							<option value="4">2000-10</option>
+							<option value="3">1990-2000</option>
+							<option value="2">1980-90</option>
+							<option value="1">1970-80</option>
+						</select>
+					</div>
+					<div style="margin-left:20px;float:left">
+						<button onclick="on_scat_change()" >Go!</button>
+					</div>
+				</div>
+			</div>
+			<div class="loader" id="loader" style="margin-left:50%;visibility:hidden;"></div>
+			<div id="main" style="width: 100%;height: 90%;text-align: center;border: 1px black dotted;border-radius: 3px;">
+				
+				<div id="graph1"style="width:60% ; height:100% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
                         Graph 1
                 </div>
+				<div id="graph2"style="width:40% ; height:100% ; text-align: center;float: left; border: 1px black dotted;border-radius: 3px;" >
+                        Graph 2
+                </div>
 			</div>
-           
         </div>
     </body>
 </html>

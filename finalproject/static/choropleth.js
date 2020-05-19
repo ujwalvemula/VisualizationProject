@@ -3,17 +3,17 @@ var Choropleth = function(params)
   self = this;
   self.container = params.container;
   self.data = params.data;
-
-  var width = +800;
-  var height = +600;
+  var tooltip = d3.select("div.tooltip");
+  var width = params.width;
+  var height = params.height;
   var svg = d3.select(self.container).append("svg")
               .attr("width", width)
               .attr("height", height);
 
   var path = d3.geoPath();
   var projection = d3.geoMercator()
-        .scale(100)
-        .center([0,20])
+        .scale(params.scale)
+        .center(params.center)
         .translate([width / 2, height / 2]);
 
   self.data = JSON.parse(self.data);
@@ -37,10 +37,18 @@ var Choropleth = function(params)
     .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
     //.defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv", function(d) { data.set(d.code, +d.pop); })
     .await(ready);
+	
+  
+  
+
+    
 
   function ready(error, topo) {
 
     let mouseOver = function(d) {
+		if(params.country!=undefined){
+			return;
+		}
       d3.selectAll(".Country")
         .transition()
         .duration(200)
@@ -50,9 +58,13 @@ var Choropleth = function(params)
         .duration(200)
         .style("opacity", 1)
         .style("stroke", "black")
+	  tooltip.style("hidden", false).html(d.properties.name);
     }
 
     let mouseLeave = function(d) {
+		if(params.country!=undefined){
+			return;
+		}
       d3.selectAll(".Country")
         .transition()
         .duration(200)
@@ -61,6 +73,7 @@ var Choropleth = function(params)
         .transition()
         .duration(200)
         .style("stroke", "transparent")
+	   tooltip.classed("hidden", true);
     }
 
     svg.append("g")
@@ -75,11 +88,28 @@ var Choropleth = function(params)
           d.total = data.get(d.id) || 0;
           return colorScale(d.total);
         })
-        .style("stroke", "transparent")
+        .style("stroke",function(d){ 
+				if(d.properties.name==params.country)
+					return "black"
+				else 
+					return "transparent"})
         .attr("class", function(d){ return "Country" } )
-        .style("opacity", .8)
+        .style("opacity",function(d){ 
+				if(params.country!=undefined){
+					if(d.properties.name==params.country)
+						return 1
+					else
+						return 0.6
+				}
+				else
+					return .8
+		})
         .on("mouseover", mouseOver )
         .on("mouseleave", mouseLeave )
-      }
+		.on("mouseout", mouseLeave )
+		.append("title")
+          .text(d => `${d.properties.name}\n Total Death Count ${d.total}  `)
+	
+   }
 
 }

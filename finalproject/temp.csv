@@ -1,0 +1,141 @@
+,,,targsubtype1_txt
+,,,count
+gname,targtype1_txt,targsubtype1_txt,
+Jammu and Kashmir Liberation Front,Business,Bank/Commerce,2
+Jammu and Kashmir Liberation Front,Business,Industrial/Textiles/Factory,1
+Jammu and Kashmir Liberation Front,Business,Unknown,8
+Jammu and Kashmir Liberation Front,Government (General),Government Building/Facility/Office,2
+Jammu and Kashmir Liberation Front,Government (General),"Government Personnel (excluding police, military)",1
+Jammu and Kashmir Liberation Front,Government (General),Intelligence,1
+Jammu and Kashmir Liberation Front,Government (General),Judge/Attorney/Court,1
+Jammu and Kashmir Liberation Front,Government (General),Politician or Political Party Movement/Meeting/Rally,1
+Jammu and Kashmir Liberation Front,Military,"Military Personnel (soldiers, troops, officers, forces)",1
+Jammu and Kashmir Liberation Front,Military,Military Unit/Patrol/Convoy,1
+Jammu and Kashmir Liberation Front,Police,Police Security Forces/Officers,17
+Jammu and Kashmir Liberation Front,Private Citizens & Property,Laborer (General)/Occupation Identified,3
+Jammu and Kashmir Liberation Front,Private Citizens & Property,Marketplace/Plaza/Square,1
+Jammu and Kashmir Liberation Front,Private Citizens & Property,Religion Identified,1
+Jammu and Kashmir Liberation Front,Telecommunication,Telephone/Telegraph,1
+Jammu and Kashmir Liberation Front,Transportation,Bus (excluding tourists),1
+Jammu and Kashmir Liberation Front,Violent Political Party,Party Official/Candidate/Other Personnel,1
+Kashmiri extremists,Government (General),"Government Personnel (excluding police, military)",2
+Kashmiri extremists,Government (General),Politician or Political Party Movement/Meeting/Rally,2
+Kashmiri extremists,Military,Military Transportation/Vehicle (excluding convoys),2
+Kashmiri extremists,Military,Military Unit/Patrol/Convoy,6
+Kashmiri extremists,Police,"Police Building (headquarters, station, school)",3
+Kashmiri extremists,Police,Police Checkpoint,1
+Kashmiri extremists,Police,Police Patrol (including vehicles and convoys),2
+Kashmiri extremists,Police,Police Security Forces/Officers,16
+Kashmiri extremists,Private Citizens & Property,Laborer (General)/Occupation Identified,1
+Kashmiri extremists,Private Citizens & Property,Unnamed Civilian/Unspecified,1
+Muslim Militants,Business,Retail/Grocery/Bakery,1
+Muslim Militants,Government (General),Government Building/Facility/Office,2
+Muslim Militants,Government (General),"Government Personnel (excluding police, military)",1
+Muslim Militants,Government (General),Politician or Political Party Movement/Meeting/Rally,5
+Muslim Militants,Journalists & Media,Television Journalist/Staff/Facility,1
+Muslim Militants,Military,"Military Personnel (soldiers, troops, officers, forces)",1
+Muslim Militants,Military,Military Transportation/Vehicle (excluding convoys),1
+Muslim Militants,Military,Military Unit/Patrol/Convoy,3
+Muslim Militants,Police,"Police Building (headquarters, station, school)",1
+Muslim Militants,Police,Police Patrol (including vehicles and convoys),2
+Muslim Militants,Police,Police Security Forces/Officers,6
+Muslim Militants,Private Citizens & Property,Laborer (General)/Occupation Identified,8
+Muslim Militants,Private Citizens & Property,Religion Identified,1
+Muslim Militants,Private Citizens & Property,Unnamed Civilian/Unspecified,1
+Muslim Militants,Religious Figures/Institutions,Unknown,1
+Muslim Separatists,Business,Restaurant/Bar/Café,1
+Muslim Separatists,Government (General),Government Building/Facility/Office,5
+Muslim Separatists,Police,Police Security Forces/Officers,2
+Muslim Separatists,Private Citizens & Property,Laborer (General)/Occupation Identified,1
+Muslim Separatists,Private Citizens & Property,Unnamed Civilian/Unspecified,2
+Others,Airports & Aircraft,Aircraft (not at an airport),1
+Others,Airports & Aircraft,Airport,1
+Others,Business,Bank/Commerce,4
+Others,Business,Farm/Ranch,1
+Others,Business,Gas/Oil/Electric,1
+Others,Business,Industrial/Textiles/Factory,1
+Others,Business,Retail/Grocery/Bakery,1
+Others,Business,Unknown,4
+Others,Educational Institution,Other Personnel,1
+Others,Educational Institution,School/University/Educational Building,1
+Others,Government (General),Government Building/Facility/Office,2
+Others,Government (General),"Government Personnel (excluding police, military)",6
+Others,Government (General),Intelligence,1
+Others,Government (General),Politician or Political Party Movement/Meeting/Rally,11
+Others,Journalists & Media,Newspaper Journalist/Staff/Facility,1
+Others,Journalists & Media,Radio Journalist/Staff/Facility,1
+Others,Journalists & Media,Television Journalist/Staff/Facility,1
+Others,Military,Military Barracks/Base/Headquarters/Checkpost,1
+Others,Military,"Military Personnel (soldiers, troops, officers, forces)",2
+Others,Military,Military Unit/Patrol/Convoy,2
+Others,Police,"Police Building (headquarters, station, school)",4
+Others,Police,Police Patrol (including vehicles and convoys),7
+Others,Police,Police Security Forces/Officers,11
+Others,Private Citizens & Property,Laborer (General)/Occupation Identified,4
+Others,Private Citizens & Property,Marketplace/Plaza/Square,3
+Others,Private Citizens & Property,Named Civilian,1
+Others,Private Citizens & Property,Political Party Member/Rally,1
+Others,Private Citizens & Property,Religion Identified,3
+Others,Private Citizens & Property,Unnamed Civilian/Unspecified,1
+Others,Private Citizens & Property,Vehicles/Transportation,1
+Others,Private Citizens & Property,Village/City/Town/Suburb,2
+Others,Religious Figures/Institutions,Place of Worship,1
+Others,Religious Figures/Institutions,Unknown,2
+Others,Terrorists/Non-State Militia,Terrorist,1
+Others,Tourists,Tour Bus/Van,1
+Others,Transportation,Bridge/Car Tunnel,1
+Others,Transportation,Bus (excluding tourists),4
+Others,Transportation,Train/Train Tracks/Trolley,7
+Others,Violent Political Party,Party Office/Facility,1
+Sikh Extremists,Business,Bank/Commerce,30
+Sikh Extremists,Business,Entertainment/Cultural/Stadium/Casino,4
+Sikh Extremists,Business,Hotel/Resort,1
+Sikh Extremists,Business,Industrial/Textiles/Factory,5
+Sikh Extremists,Business,Medical/Pharmaceutical,1
+Sikh Extremists,Business,Restaurant/Bar/Café,3
+Sikh Extremists,Business,Retail/Grocery/Bakery,5
+Sikh Extremists,Business,Unknown,2
+Sikh Extremists,Educational Institution,Other Personnel,1
+Sikh Extremists,Educational Institution,Teacher/Professor/Instructor,5
+Sikh Extremists,Educational Institution,Unknown,1
+Sikh Extremists,Government (General),Government Building/Facility/Office,1
+Sikh Extremists,Government (General),"Government Personnel (excluding police, military)",7
+Sikh Extremists,Government (General),Judge/Attorney/Court,2
+Sikh Extremists,Government (General),Politician or Political Party Movement/Meeting/Rally,10
+Sikh Extremists,Journalists & Media,Radio Journalist/Staff/Facility,1
+Sikh Extremists,Military,"Military Personnel (soldiers, troops, officers, forces)",1
+Sikh Extremists,Military,Military Transportation/Vehicle (excluding convoys),1
+Sikh Extremists,Military,Military Unit/Patrol/Convoy,6
+Sikh Extremists,Police,"Police Building (headquarters, station, school)",5
+Sikh Extremists,Police,Police Patrol (including vehicles and convoys),7
+Sikh Extremists,Police,Police Security Forces/Officers,56
+Sikh Extremists,Private Citizens & Property,Labor Union Related,1
+Sikh Extremists,Private Citizens & Property,Laborer (General)/Occupation Identified,4
+Sikh Extremists,Private Citizens & Property,Marketplace/Plaza/Square,11
+Sikh Extremists,Private Citizens & Property,Named Civilian,2
+Sikh Extremists,Private Citizens & Property,Protester,1
+Sikh Extremists,Private Citizens & Property,"Public Area (garden, parking lot, garage, beach, public building, camp)",2
+Sikh Extremists,Private Citizens & Property,Refugee (including Camps/IDP/Asylum Seekers),1
+Sikh Extremists,Private Citizens & Property,Religion Identified,9
+Sikh Extremists,Private Citizens & Property,Unnamed Civilian/Unspecified,12
+Sikh Extremists,Private Citizens & Property,Vehicles/Transportation,4
+Sikh Extremists,Private Citizens & Property,Village/City/Town/Suburb,2
+Sikh Extremists,Religious Figures/Institutions,Place of Worship,4
+Sikh Extremists,Religious Figures/Institutions,Religious Figure,1
+Sikh Extremists,Religious Figures/Institutions,Unknown,1
+Sikh Extremists,Telecommunication,Television,1
+Sikh Extremists,Terrorists/Non-State Militia,Terrorist,1
+Sikh Extremists,Tourists,Tourist,1
+Sikh Extremists,Transportation,Bridge/Car Tunnel,1
+Sikh Extremists,Transportation,Bus (excluding tourists),10
+Sikh Extremists,Transportation,Bus Station/Stop,3
+Sikh Extremists,Transportation,Train/Train Tracks/Trolley,8
+Sikh Extremists,Unknown,Unknown,1
+Sikh Extremists,Utilities,Electricity,1
+Sikh Extremists,Violent Political Party,Party Official/Candidate/Other Personnel,8
+United Liberation Front of Assam (ULFA),Business,Gas/Oil/Electric,9
+United Liberation Front of Assam (ULFA),Business,Retail/Grocery/Bakery,1
+United Liberation Front of Assam (ULFA),Business,Unknown,1
+United Liberation Front of Assam (ULFA),Government (General),"Government Personnel (excluding police, military)",5
+United Liberation Front of Assam (ULFA),Government (General),Politician or Political Party Movement/Meeting/Rally,2
+United Liberation Front of Assam (ULFA),Transportation,Bridge/Car Tunnel,1
