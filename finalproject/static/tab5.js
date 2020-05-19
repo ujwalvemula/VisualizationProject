@@ -1,16 +1,19 @@
 var scatter_plot_data
 var sun_burst_data
+var loaded=false
 function handle_pageload(){
-    get('http://127.0.0.1:5000/scat_pi_data',function(data,status){
-        countries_list=data.countries;
-        for(var i=0;i<countries_list.length;i++){
-            country=countries_list[i];
-            $("#country").append(new Option(country,country));
-        }
-        $("#country").append(new Option('United States','United States'));
-        get_scatter_plot_data(countries_list[0],5);
-    });
-    
+    if(loaded==false){
+        get('http://127.0.0.1:5000/scat_pi_data',function(data,status){
+            countries_list=data.countries;
+            for(var i=0;i<countries_list.length;i++){
+                country=countries_list[i];
+                $("#country").append(new Option(country,country));
+            }
+            $("#country").append(new Option('United States','United States'));
+            get_scatter_plot_data(countries_list[0],5);
+            loaded=true;
+        });
+    }
     
 }
 
@@ -22,6 +25,7 @@ function get_scatter_plot_data(country,decade){
         $("#loader")[0]['style'].visibility='hidden'
         scatter_plot_data=data;
         scatter_plot(scatter_plot_data);
+        add_legends(scatter_plot_data['groups'])
         sun_burst_data=data['sun_burst'];
         plot_sun_burst(sun_burst_data);
     });
@@ -38,8 +42,8 @@ function scatter_plot(data){
     xmin=d3.min(data.x)
     ymax=d3.max(data.y)
     ymin=d3.min(data.y)
-    var width = 450  
-    var height = 450;
+    var width = 400  
+    var height = 400;
     var xscale = d3.scaleLinear()
       .domain([xmin, xmax]) 
       .range([0, width]); 
@@ -52,6 +56,7 @@ function scatter_plot(data){
     var svg = d3.select("#graph1").append("svg")
       .attr("width", width + 95)
       .attr("height", height + 65)
+      .attr("style","margin-top:2%")
     .append("g")
       .attr("transform", "translate(50,10)");
 
@@ -71,7 +76,7 @@ function scatter_plot(data){
 		 .attr("stroke", "black")
 		 
 	svg.append("text")
-			.attr("y", 480 )
+			.attr("y", 430 )
 			.attr("x", 305 )
 			.attr("text-anchor", "end")
 			.text("Principal Component1")
@@ -130,6 +135,7 @@ function plot_sun_burst(nodeData){
     var g = d3.select('#graph2').append('svg')
         .attr('width', width)
         .attr('height', height)
+        .attr('style','margin-top:5%')
         .append('g')
         .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
@@ -165,6 +171,23 @@ function plot_sun_burst(nodeData){
             return c1;
          })
         .append("title")
-          .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n Total deaths: ${format(d.value)}`);
+          .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("\n")}\n Total deaths: ${format(d.value)}`);
         
+}
+
+function add_legends(keys){
+    d3.select("#legends").selectAll("*").remove()
+    var svg = d3.select("#legends")
+              .attr("height","100%")
+    svg.append("text").attr("x", 50).attr("y", 60 ).text('Terrorist Organisation').style("font-size", "20px").attr("alignment-baseline","middle")
+    var i=0;
+    for(var k in keys){
+        svg.append("circle").attr("cx",60).attr("cy",100+i*30).attr("r", 6).style("fill", get_color(keys[k]))
+        svg.append("text").attr("x", 80).attr("y", 100+i*30).text(k).style("font-size", "15px").attr("alignment-baseline","middle")
+        i+=1
+    }
+    svg.append("text").attr("x", 50).attr("y", 300 ).text('Hierarchy Levels').style("font-size", "20px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 60).attr("y", 340).text("Level 0: Terrorist Organisation ").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 60).attr("y", 370).text("Level 1: Target Type").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 60).attr("y", 400).text("Level 2: Target Sub Type").style("font-size", "15px").attr("alignment-baseline","middle")
 }

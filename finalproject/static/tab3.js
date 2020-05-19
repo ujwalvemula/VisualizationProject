@@ -2,6 +2,7 @@
 function handle_pageload(){
   get('http://127.0.0.1:5000/pll_cord_data',function(data,status){
     plot_parallel_coordinates(data);
+    add_legends(data.countries)
   });
    
 }
@@ -103,4 +104,29 @@ function get(url,afunc){
  	$.get(url, function(data, status){
     afunc(data,status)
  	  });
+}
+
+function add_legends(keys){
+  d3.select("#legends").selectAll("*").remove()
+  var svg = d3.select("#legends")
+            .attr("height","100%")
+  var color=d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, keys.length))
+  
+  svg.append("text").attr("x", 40).attr("y", 60 ).text('Countries').style("font-size", "20px").attr("alignment-baseline","middle")
+  var i=0
+  for(i=0; i< keys.length;i++){
+      svg.append("circle").attr("cx",50).attr("cy",100+i*10).attr("r", 6).style("fill", color(keys[i]))
+      svg.append("text").attr("x", 70).attr("y", 100+i*10).text(keys[i]).style("font-size", "15px").attr("alignment-baseline","middle")
+      i+=1
+  }
+  
+  ["year","hdi","nincidents", "imports","nkills" ,"mil_exp"]
+  svg.append("text").attr("x", 40).attr("y", 130+i*10 ).text('Parallel Coordinates').style("font-size", "20px").attr("alignment-baseline","middle")
+  svg.append("text").attr("x", 40).attr("y", 150+i*10).text("year : Year ").style("font-size", "15px").attr("alignment-baseline","middle")
+  svg.append("text").attr("x", 40).attr("y", 170+i*10).text("hdi : Human Development Index ").style("font-size", "15px").attr("alignment-baseline","middle")
+  svg.append("text").attr("x", 40).attr("y", 190+i*10).text("nincidents : Number of Terrorist Activities").style("font-size", "15px").attr("alignment-baseline","middle")
+  svg.append("text").attr("x", 40).attr("y", 210+i*10).text("imports : Military Imports Of Nation").style("font-size", "15px").attr("alignment-baseline","middle")
+  svg.append("text").attr("x", 40).attr("y", 230+i*10).text("nkills :Number of Deaths").style("font-size", "15px").attr("alignment-baseline","middle")
+  svg.append("text").attr("x", 40).attr("y", 250+i*10).text("mil_exp : % Military Expenditure of GDP").style("font-size", "15px").attr("alignment-baseline","middle")
+
 }

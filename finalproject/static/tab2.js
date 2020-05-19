@@ -4,17 +4,19 @@ function handle_pageload(){
 	get('http://127.0.0.1:5000/country_data',function(data,status){
     country_data=data.country_data;  
 	populate_data()
-	
+	get_dashboard_data('Iraq')
   });
 }
 function get_dashboard_data(key){
 	//Plotting Kills in year 
+	
 	country=key
 	deaths_data=country_data[key]['kills'];
 	data_x=Object.keys(deaths_data).map(Number);
 	data_y=Object.values(deaths_data);
 	make_line_plot(data_x,data_y,1)
 	
+	$("#Country")[0].innerHTML="<b>"+country+"- incidents - statistics </b> "
 	/*//Plotting Incidents in an year
 	events_data=country_data[key]['events'];
 	data_x=Object.keys(events_data).map(Number);
@@ -110,7 +112,7 @@ function myFunction() {
   }
 
 function make_line_plot(x_data,y_data,gid){
-	var width = 150 ; 
+	var width = 200 ; 
     var height = 150;
 	//for the xscale using linear scale
 	//var xScale =d3.scaleBand().domain(x_data).range([0,width])
@@ -174,7 +176,7 @@ function make_line_plot(x_data,y_data,gid){
 			x=x.toString()	
 		i=x_data.indexOf(x);
 		y=y_data[i];
-		tooltip.text('x:'+x+' y:'+y);
+		tooltip.text('Year:'+x+' y:'+y);
 		return tooltip.style("visibility", "visible");
 	  })
 	  .on("mousemove", function(d) { 

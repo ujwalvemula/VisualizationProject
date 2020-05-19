@@ -66,7 +66,10 @@ def process_yearly_data(csv_data,ystart_index,country_column,metric):
             metric_data[country]={}
         for i in range(ystart_index,len(csv_data.columns)):
             year=csv_data.columns[i]
-            c_data[year]=data[1][i]
+            if(data[1][i]!='..'):
+                c_data[year]=data[1][i]
+            else:
+                c_data[year]=0.0
             try :
                 if 'total_'+metric in  metric_data[country]:           
                     metric_data[country]['total_'+metric]+=float(data[1][i])
@@ -145,19 +148,19 @@ def get_scatter_plot_data(country,decade):
     df=terr_data.loc[(terr_data['country_txt']==country) & (terr_data['iyear']>=start+10*(decade-1)) & (terr_data['iyear']<=start+10*decade)
                     & (terr_data['gname']!='Unknown') ]
     df=df.fillna(0)
-    items= df['gname'].value_counts()[:6].index.tolist()
     
-    df['gname']= np.where(np.isin(df['gname'], items) , df['gname'], 'Others')
     df['targsubtype1_txt']= np.where( df['targsubtype1_txt'] != 0 , df['targsubtype1_txt'], 'Unknown')
     data=np.array(df)
 
     print("picking random sample")
     
-    if(len(data)>600):
-        data=pick_random_sample(data,600)
+    if(len(data)>400):
+        data=pick_random_sample(data,400)
 
     df= pd.DataFrame(data=data,columns=df.columns)   
-
+    items= df['gname'].value_counts()[:6].index.tolist()
+    
+    df['gname']= np.where(np.isin(df['gname'], items) , df['gname'], 'Others')
     terr_df=df[['iyear','imonth','country','region','latitude','longitude','attacktype1'
                     ,'suicide','targtype1','targsubtype1','natlty1','gname','weaptype1','nkill','nwound']]
   
@@ -195,7 +198,7 @@ def flatten_hierarchial_data(data):
             lev1[i[0][0]][i[0][1]]={}
         lev1[i[0][0]][i[0][1]][i[0][2]]=i[1]
         
-    return {'name':'data','children':serialize(lev1) }
+    return {'name':'Group','children':serialize(lev1) }
 
 def serialize(data):
     d=[]
@@ -235,9 +238,11 @@ def get_scat_pi_data():
 def get_parallel_coordinate_data():
     #columns [iyear,country_txt,nkill,nwound,attacktype1_txt,targtype1_txt,weaptype1_txt,gname,hdi,mil_exp,imports]
     df=terr_data[['iyear','eventid','nkill','country_txt']]
-    # for top 10 countries victim nations
-    items= df['country_txt'].value_counts()[:10].index.tolist()
-    df=df.loc[df['country_txt'].isin(items) & (df['iyear']>=1990) ]
+        # for top 10 countries victim nations
+    
+    df=df.loc[ (df['iyear']>=1990) ]
+    items= df['country_txt'].value_counts()[:20].index.tolist()
+    df=df[df['country_txt'].isin(items) ]
     df1= df.groupby(['country_txt','iyear']).agg({'nkill':['sum'],'eventid':pd.Series.nunique})
     print(df1)
     parallel_data=[]
@@ -247,7 +252,8 @@ def get_parallel_coordinate_data():
     for i in df1.itertuples(index=True, name='Pandas'):
         country=i[0][0]
         year=str(i[0][1])
-        if all( l in metric_data[country].keys() for l in ['hdi','mil_exp','imports'] ):            
+        if((country in metric_data ) and all( l in metric_data[country].keys() for l in ['hdi','mil_exp','imports'] )
+          and  (year in metric_data[country]['hdi']) and (year in metric_data[country]['mil_exp']) and (year in metric_data[country]['imports'])):
             item={'country':country,'year':int(year),'nkills':i[1],'nincidents':i[2],'hdi':float(metric_data[country]['hdi'][year]),
                 'mil_exp':metric_data[country]['mil_exp'][year],'imports':metric_data[country]['imports'][year] }
         parallel_data.append(item) 
