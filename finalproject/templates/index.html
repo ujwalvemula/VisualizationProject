@@ -28,7 +28,7 @@
       cursor: pointer;
       padding: 14px 16px;
       font-size: 17px;
-      width: 16.5%;
+      width: 20%;
     }
 
     .tablink:hover {
@@ -61,12 +61,11 @@
   <body style="overflow:hidden">
 
     <center>
-      <button class="tablink" onclick="openPage('tab1', this, 'red')" id="defaultOpen">Tab1</button>
-      <button class="tablink" onclick="openPage('tab2', this, 'green')">Tab2</button>
-      <button class="tablink" onclick="openPage('tab3', this, 'blue')">Tab3</button>
-      <button class="tablink" onclick="openPage('tab4', this, 'orange')">Tab4</button>
-	  <button class="tablink" onclick="openPage('tab5', this, 'blue')">Tab5</button>
-      <button class="tablink" onclick="openPage('tab6', this, 'orange')">Tab6</button>
+	  <button class="tablink" onclick="openPage('tab2', this, 'red')" id="defaultOpen">Dashboard</button>
+      <button class="tablink" onclick="openPage('tab1', this, 'steelblue')" >Tab1</button>
+      <button class="tablink" onclick="openPage('tab3', this, 'green')">Parallel Coordinates</button>
+	  <button class="tablink" onclick="openPage('tab5', this, 'orange')">Terrorist Groups and Activities</button>
+      <button class="tablink" onclick="openPage('tab6', this, 'violet')">Infographics</button>
 
       <div id="tab1" class="tabcontent">
         <div class="yearSelect"></div>
@@ -81,10 +80,6 @@
         <iframe src="/tab3.html" title="Parallel-Coordinates" class="dashboard-content"></iframe>
       </div>
 
-      <div id="tab4" class="tabcontent">
-        <h3>Attacks Timeline</h3>
-      </div>
-	  
 	  <div id="tab5" class="tabcontent">
         <iframe src="/tab5.html" title="Scatterplot" class="dashboard-content"></iframe>
       </div>

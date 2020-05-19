@@ -189,7 +189,7 @@ function make_line_plot(x_data,y_data,gid){
 			x=x.toString()	
 		i=x_data.indexOf(x);
 		y=y_data[i];
-		tooltip.text('x:'+x+' y:'+y);
+		tooltip.text('Year:'+x+' Value:'+y);
 			return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
 	   })
 	  .on("mouseout", function(d) { 
