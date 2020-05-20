@@ -123,57 +123,6 @@ function get(url,afunc){
  	  });
 }
 
-function plot_sun_burst(nodeData){
-    
-    // Variables
-    var width = 400;
-    var height = 400;
-    var radius = Math.min(width, height) / 2;
-    var color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 8))
-    d3.select("#graph2").selectAll("*").remove()
-    // Create primary <g> element
-    var g = d3.select('#graph2').append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .attr('style','margin-top:5%')
-        .append('g')
-        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
-
-    // Data strucure
-    var partition = d3.partition()
-        .size([2 * Math.PI, radius]);
-
-    // Find data root
-    var root = d3.hierarchy(nodeData)
-        .sum(function (d) { return d.size});
-
-    // Size arcs
-    partition(root);
-    var arc = d3.arc()
-        .startAngle(function (d) { return d.x0 })
-        .endAngle(function (d) { return d.x1 })
-        .innerRadius(function (d) { return d.y0 })
-        .outerRadius(function (d) { return d.y1 });
-    var format = d3.format(",d")
-    // Put it all together
-    g.selectAll('path')
-        .data(root.descendants())
-        .enter().append('path')
-        .attr("display", function (d) { return d.depth ? null : "none"; })
-        .attr("d", arc)
-        .style('stroke', '#fff')
-        .style("fill", function (d) { 
-            if(d.data.name in scatter_plot_data['groups']){
-                c1=get_color(scatter_plot_data['groups'][d.data.name]);
-            }
-            else
-                c1=  color((d.children ? d : d.parent).data.name);
-            return c1;
-         })
-        .append("title")
-          .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("\n")}\n Total deaths: ${format(d.value)}`);
-        
-}
 
 function add_legends(keys){
     d3.select("#legends").selectAll("*").remove()
@@ -190,4 +139,50 @@ function add_legends(keys){
     svg.append("text").attr("x", 60).attr("y", 340).text("Level 0: Terrorist Organisation ").style("font-size", "15px").attr("alignment-baseline","middle")
     svg.append("text").attr("x", 60).attr("y", 370).text("Level 1: Target Type").style("font-size", "15px").attr("alignment-baseline","middle")
     svg.append("text").attr("x", 60).attr("y", 400).text("Level 2: Target Sub Type").style("font-size", "15px").attr("alignment-baseline","middle")
+}
+
+function plot_sun_burst(nodeData){
+    
+    var width = 400;
+    var height = 400;
+    var radius = Math.min(width, height) / 2;
+    var color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 8))
+    d3.select("#graph2").selectAll("*").remove()
+    var g = d3.select('#graph2').append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('style','margin-top:5%')
+        .append('g')
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+
+    var part = d3.partition()
+        .size([2 * Math.PI, radius]);
+
+    var root_node = d3.hierarchy(nodeData)
+        .sum(function (d) { return d.size});
+    part(root_node);
+
+    var format = d3.format(",d")
+    g.selectAll('path')
+        .data(root_node.descendants())
+        .enter().append('path')
+        .attr("display", function (d) { return d.depth ? null : "none"; })
+        .attr("d", d3.arc()
+        .startAngle(function (d) { return d.x0 })
+        .endAngle(function (d) { return d.x1 })
+        .innerRadius(function (d) { return d.y0 })
+        .outerRadius(function (d) { return d.y1 }))
+        .style('stroke', '#fff')
+        .style("fill", function (d) { 
+            if(d.data.name in scatter_plot_data['groups']){
+                c1=get_color(scatter_plot_data['groups'][d.data.name]);
+            }
+            else
+                c1=  color((d.children ? d : d.parent).data.name);
+            return c1;
+         })
+        .append("title")
+          .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("\n")}\n Total deaths: ${format(d.value)}`);
+        
 }
