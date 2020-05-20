@@ -27,7 +27,7 @@ var Choropleth = function(params)
 
   var r = d3.max(data.values()) - d3.min(data.values()); //range
   var colorScale = d3.scaleThreshold()
-              .domain([d3.min(data.values()), d3.min(data.values())+(0.05*r), d3.min(data.values())+(0.15*r), d3.min(data.values())+(0.3*r), d3.min(data.values())+(0.6*r), d3.max(data.values())])
+              .domain([1, d3.min(data.values())+(0.05*r), d3.min(data.values())+(0.15*r), d3.min(data.values())+(0.3*r), d3.min(data.values())+(0.6*r), d3.max(data.values())])
               .range(["#c8c8c8"].concat(d3.schemeReds[6]));
 
   console.log(data);
@@ -35,13 +35,8 @@ var Choropleth = function(params)
   // Load external data and boot
   d3.queue()
     .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-    //.defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv", function(d) { data.set(d.code, +d.pop); })
     .await(ready);
-	
-  
-  
 
-    
 
   function ready(error, topo) {
 
@@ -88,13 +83,13 @@ var Choropleth = function(params)
           d.total = data.get(d.id) || 0;
           return colorScale(d.total);
         })
-        .style("stroke",function(d){ 
+        .style("stroke",function(d){
 				if(d.properties.name==params.country)
 					return "black"
-				else 
+				else
 					return "transparent"})
         .attr("class", function(d){ return "Country" } )
-        .style("opacity",function(d){ 
+        .style("opacity",function(d){
 				if(params.country!=undefined){
 					if(d.properties.name==params.country)
 						return 1
@@ -109,7 +104,39 @@ var Choropleth = function(params)
 		.on("mouseout", mouseLeave )
 		.append("title")
           .text(d => `${d.properties.name}\n Total Death Count ${d.total}  `)
-	
+
    }
+
+   var legend = svg.selectAll('g.legendEntry')
+    .data(colorScale.range().reverse())
+    .enter()
+    .append('g').attr('class', 'legendEntry');
+
+legend
+    .append('rect')
+    .attr("x", width - 780)
+    .attr("y", function(d, i) {
+       return i * 20;
+    })
+   .attr("width", 10)
+   .attr("height", 10)
+   .style("stroke", "black")
+   .style("stroke-width", 1)
+   .style("fill", function(d){return d;});
+       //the data objects are the fill colors
+
+legend
+    .append('text')
+    .attr("x", width - 765) //leave 5 pixel space after the <rect>
+    .attr("y", function(d, i) {
+       return i * 20;
+    })
+    .attr("dy", "0.8em") //place text one line *below* the x,y point
+    .text(function(d,i) {
+        var extent = colorScale.invertExtent(d);
+        //extent will be a two-element array, format it however you want:
+        var format = d3.format("0.2f");
+        return format(+extent[0]) + " - " + format(+extent[1]);
+    });
 
 }
